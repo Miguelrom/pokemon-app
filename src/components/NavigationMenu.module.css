@@ -1,0 +1,43 @@
+.header {
+  border: 1px solid black;
+  padding: 0 1.5rem;
+  background-color: lightseagreen;
+  position: fixed;
+  width: 100%;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.list a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.list a:hover {
+  color: lightseagreen;
+  background-color: lightblue;
+}
+
+.list li:last-child {
+  margin-left: auto;
+}
+
+
+.list img {
+  border: 1px solid black;
+}
+
+.badge {
+  background-color: #1ad1b9;
+  border-radius: 1rem;
+  border: 1px solid white;
+  padding: 0.1rem 0.5rem;
+  color: yellow;
+}
