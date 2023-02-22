@@ -4,9 +4,11 @@ export default function useMediaQuery (mediaQueryString) {
 
   const [matches, setMatches] = useState(false);
 
+  const mql = window.matchMedia(mediaQueryString);
+
   useEffect(() => {
 
-    const mql = window.matchMedia(mediaQueryString);
+    setMatches(mql.matches);
 
     const documentChangeHandler = (e) => {
       setMatches(e.matches);
@@ -18,7 +20,7 @@ export default function useMediaQuery (mediaQueryString) {
       mql.removeEventListener('change', documentChangeHandler);
     }
 
-  }, [mediaQueryString]);
+  }, [mql]);
 
   return matches;
 
