@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import NavigationMenu from "../components/NavigationMenu";
 
 export default function Root () {
@@ -5,7 +6,7 @@ export default function Root () {
     <>
       <NavigationMenu />
       <main>
-        <p>Hola from Root!</p>
+        <Outlet />
       </main>
     </>
   );
