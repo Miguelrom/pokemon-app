@@ -68,7 +68,7 @@
   pointer-events: none;
 }
 
-span {
+.types span {
   padding: 0.2rem 0.8rem;
   border-radius: 1rem;
   color: white;
