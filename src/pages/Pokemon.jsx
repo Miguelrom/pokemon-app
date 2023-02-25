@@ -1,4 +1,5 @@
-import PokemonCard from "../components/PokemonCard";
+import PokemonList from "../components/PokemonList";
+import PageTitle from "../components/ui/PageTitle";
 
 // const DUMMY_POKEMON_RES = {
 //   count: 1279,
@@ -56,34 +57,14 @@ import PokemonCard from "../components/PokemonCard";
 //   ],
 // };
 
-const POKEMON_PREVIEW_LIST = [
-  {
-    id: 1,
-    name: "bulbasaur",
-    sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-    types: ["grass", "poison"],
-  },
-  {
-    id: 2,
-    name: "ivysaur",
-    sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
-    types: ["grass", "poison"],
-  },
-  {
-    id: 3,
-    name: "venusaur",
-    sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png",
-    types: ["grass", "poison"],
-  },
-];
 
 export default function Pokemon () {
 
 
   return (
     <>
-      <h1>Pokemon page...</h1>
-      <PokemonCard {...POKEMON_PREVIEW_LIST[0]} isAdopted={false}/>
+      <PageTitle>Browse all pokémon</PageTitle>
+      <PokemonList  />
     </>
   );
 }
