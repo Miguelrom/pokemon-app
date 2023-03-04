@@ -23,7 +23,7 @@ import classes from './PokemonList.module.css';
 //   },
 // ];
 
-export default function PokemonList ({pokemon}) {
+export default function PokemonList ({pokemon, onPageChange, page}) {
 
   return (
     <div>
@@ -48,7 +48,9 @@ export default function PokemonList ({pokemon}) {
         <PokemonCard {...pokemon[11]} isAdopted={false}/>
       </div>
       <div className={classes.pageControl}>
-        <button>Previous</button><span> <span style={{fontWeight: "800"}}>{1}</span> of 84</span><button>Next</button>
+        <button onClick={() => onPageChange('previous')} disabled={page===1}>Previous</button>
+        <span> <span style={{fontWeight: "800"}}>{page}</span> of 84</span>
+        <button onClick={() => onPageChange('next')} disabled={page===84}>Next</button>
       </div>
     </div>
   );

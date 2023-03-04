@@ -86,10 +86,25 @@ export default function Pokemon () {
 
   const pokemon = useLoaderData();
 
+  let page = searchParams.has('page') ? parseInt(searchParams.get('page')) : 1;
+
+  const pageChangeHandler = (direction) => {
+
+    if (direction === 'previous') {
+      --page;
+      setSearchParams(`page=${page}`);
+    } else if (direction === 'next') {
+      ++page;
+      setSearchParams(`page=${page}`);
+    } else {
+      throw new Error('Incorrect page direction value');
+    }
+  }
+
   return (
     <>
       <PageTitle>Browse all pokémon</PageTitle>
-      <PokemonList pokemon={pokemon}/>
+      <PokemonList pokemon={pokemon} onPageChange={pageChangeHandler} page={page}/>
     </>
   );
 }
