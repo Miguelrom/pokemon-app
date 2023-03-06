@@ -122,7 +122,7 @@ export async function loader ({ request }) {
 
   const data = await res.json();
 
-  let pokemonBatch = [];
+  const pokemonBatch = Array(12);
 
   for (let i = 0; i < data.results.length; ++i) {
 
@@ -140,12 +140,12 @@ export async function loader ({ request }) {
       return item.type.name;
     });
 
-    pokemonBatch.push({
+    pokemonBatch[i] = {
       id,
       name,
       sprite,
       types,
-    });
+    }
 
   }
 
