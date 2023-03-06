@@ -71,78 +71,95 @@
 .types span {
   padding: 0.2rem 0.8rem;
   border-radius: 1rem;
-  color: white;
   text-align: center;
 }
 
 .bug {
+  color: white;
   background-color: darkgreen;
 }
 
 .dark {
+  color: white;
   background-color: black;
 }
 
 .dragon {
+  color: black;
   background-color: lightblue;
 }
 
 .electric {
+  color: black;
   background-color: yellow;
 }
 
 .fairy {
+  color: white;
   background-color: palevioletred;
 }
 
 .fighting {
+  color: black;
   background-color: orange;
 }
 
 .fire {
+  color: white;
   background-color: red;
 }
 
 .flying {
+  color: white;
   background-color: gray;
 }
 
 .ghost {
+  color: white;
   background-color: purple;
 }
 
 .grass {
+  color: white;
   background-color: green;
 }
 
 .ground {
+  color: white;
   background-color: brown;
 }
 
 .ice {
+  color: black;
   background-color: lightcyan;
 }
 
 .normal {
+  color: black;
   background-color: lightgray;
 }
 
 .poison {
+  color: white;
   background-color: rebeccapurple;
 }
 
 .psychic {
+  color: black;
   background-color: pink;
 }
 
 .rock {
+  color: white;
   background-color: chocolate;
 }
 
 .steel {
+  color: black;
   background-color: lightgreen;
 }
 
 .water {
+  color: black;
   background-color: lightskyblue;
 }
