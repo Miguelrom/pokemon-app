@@ -1,7 +1,14 @@
-import { useSearchParams, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
+import {
+  useSearchParams,
+  useLoaderData,
+  useNavigation,
+  defer,
+  Await
+} from "react-router-dom";
 import PokemonList from "../components/PokemonList";
 import PageTitle from "../components/ui/PageTitle";
-
+import Loading from "../components/ui/Loading";
 
 // const first12PokemonRes = {
 //   count: 1279,
@@ -79,64 +86,98 @@ import PageTitle from "../components/ui/PageTitle";
 //   weight: 69,
 // };
 
-
-export default function Pokemon () {
-
+export default function Pokemon() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pokemon = useLoaderData();
 
-  let page = searchParams.has('page') ? parseInt(searchParams.get('page')) : 1;
+  const navigation = useNavigation();
+
+  let page = parseInt(searchParams.get("page"));
+
+  if (!Number.isInteger(page) || page < 1 || page > 84) {
+    page = 1;
+  }
 
   const pageChangeHandler = (direction) => {
-
-    if (direction === 'previous') {
+    if (direction === "previous") {
       --page;
       setSearchParams(`page=${page}`);
-    } else if (direction === 'next') {
+    } else if (direction === "next") {
       ++page;
       setSearchParams(`page=${page}`);
     } else {
-      throw new Error('Incorrect page direction value');
+      throw new Error("Incorrect page direction value");
     }
-  }
+  };
+
 
   return (
     <>
       <PageTitle>Browse all pokémon</PageTitle>
-      <PokemonList pokemon={pokemon} onPageChange={pageChangeHandler} page={page}/>
+      {navigation.state === 'loading' && <Loading />}
+      {navigation.state === 'idle' &&
+        <Suspense fallback={<Loading />}>
+          <Await resolve={pokemon.batch}>
+            {(pokemon) =>
+              <PokemonList
+                pokemon={pokemon}
+                onPageChange={pageChangeHandler}
+                page={page}
+              />
+            }
+          </Await>
+        </Suspense>
+      }
     </>
   );
 }
 
+export async function loader({ request }) {
 
-export async function loader ({ request }) {
+  const RESULTS_LIMIT = 12;
 
   const currentURL = new URL(request.url);
 
-  const page = currentURL.searchParams.has('page') ? parseInt(currentURL.searchParams.get('page')) : 1;
+  let page = parseInt(currentURL.searchParams.get("page"));
 
-  const offset = 12 * (page - 1);
+  if (!Number.isInteger(page) || page < 1 || page > 84) {
+    page = 1;
+  }
 
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=12`);
+  const offset = RESULTS_LIMIT * (page - 1);
 
-  const data = await res.json();
+  return defer({batch: getPokemonBatch(offset, RESULTS_LIMIT)});
 
-  const pokemonBatch = Array(12);
+}
 
-  for (let i = 0; i < data.results.length; ++i) {
+async function getPokemonBatch(offset, RESULTS_LIMIT) {
 
-    const id = i + 1 + offset;
+  const detailArray = Array(RESULTS_LIMIT);
 
-    const name = data.results[i].name;
+  for (let i = 0; i < RESULTS_LIMIT; ++i) {
+
+    let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1 + offset}/`);
+
+    if (res.ok) {
+      detailArray[i] = await res.json();
+    } else {
+      detailArray[i] = {id: 0, name: 'Not found', types: [{type: {name: 'normal'}}]};
+    }
+
+  }
+
+  const pokemonBatch = Array(RESULTS_LIMIT);
+
+  for (let i = 0; i < RESULTS_LIMIT; ++i) {
+
+    const id = detailArray[i].id;
+
+    const name = detailArray[i].name;
 
     const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
-    const res = await fetch(data.results[i].url);
-
-    const detailData = await res.json();
-
-    const types = detailData.types.map((item) => {
+    const types = detailArray[i].types.map((item) => {
       return item.type.name;
     });
 
@@ -145,10 +186,12 @@ export async function loader ({ request }) {
       name,
       sprite,
       types,
-    }
+    };
 
-  }
+  } // End for loop
 
   return pokemonBatch;
 
-}
+} // End getPokemonBatch function
+
+
