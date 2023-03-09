@@ -181,11 +181,14 @@ async function getPokemonBatch(offset, RESULTS_LIMIT) {
       return item.type.name;
     });
 
+    const isAdopted = false;
+
     pokemonBatch[i] = {
       id,
       name,
       sprite,
       types,
+      isAdopted,
     };
 
   } // End for loop
