@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import {
-  useSearchParams,
   useLoaderData,
   useNavigation,
   defer,
   Await
 } from "react-router-dom";
 import PokemonList from "../components/PokemonList";
+import PageControl from "../components/PageControl";
 import PageTitle from "../components/ui/PageTitle";
 import Loading from "../components/ui/Loading";
 
@@ -87,29 +87,10 @@ import Loading from "../components/ui/Loading";
 // };
 
 export default function Pokemon() {
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const pokemon = useLoaderData();
 
   const navigation = useNavigation();
-
-  let page = parseInt(searchParams.get("page"));
-
-  if (!Number.isInteger(page) || page < 1 || page > 84) {
-    page = 1;
-  }
-
-  const pageChangeHandler = (direction) => {
-    if (direction === "previous") {
-      --page;
-      setSearchParams(`page=${page}`);
-    } else if (direction === "next") {
-      ++page;
-      setSearchParams(`page=${page}`);
-    } else {
-      throw new Error("Incorrect page direction value");
-    }
-  };
 
 
   return (
@@ -122,11 +103,10 @@ export default function Pokemon() {
             {(pokemon) =>
               <PokemonList
                 pokemon={pokemon}
-                onPageChange={pageChangeHandler}
-                page={page}
               />
             }
           </Await>
+          <PageControl maxPage={84}/>
         </Suspense>
       }
     </>

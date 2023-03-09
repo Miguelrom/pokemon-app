@@ -23,7 +23,7 @@ import classes from './PokemonList.module.css';
 //   },
 // ];
 
-export default function PokemonList ({pokemon, onPageChange, page}) {
+export default function PokemonList ({pokemon}) {
 
   const list = pokemon.map((item) => <PokemonCard {...item}/>);
 
@@ -33,11 +33,6 @@ export default function PokemonList ({pokemon, onPageChange, page}) {
         <div className={classes.pokeGrid}>
           {list}
         </div>
-      </div>
-      <div className={classes.pageControl}>
-        <button onClick={() => onPageChange('previous')} disabled={page===1}>Previous</button>
-        <span> <span style={{fontWeight: "800"}}>{page}</span> of 84</span>
-        <button onClick={() => onPageChange('next')} disabled={page===84}>Next</button>
       </div>
     </>
   );
