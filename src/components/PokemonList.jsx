@@ -25,7 +25,7 @@ import classes from './PokemonList.module.css';
 
 export default function PokemonList ({pokemon}) {
 
-  const list = pokemon.map((item) => <PokemonCard {...item}/>);
+  const list = pokemon.map((item) => <PokemonCard key={item.id} {...item}/>);
 
   return (
     <>
