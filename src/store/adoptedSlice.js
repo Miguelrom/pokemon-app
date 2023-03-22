@@ -9,6 +9,9 @@ const adoptedSlice = createSlice({
   initialState,
   reducers: {
     pokemonAdopted(state, action) {
+      for(const item of action) {
+        sessionStorage.setItem(`adopted_${item.id}`, item.name);
+      }
       state.items.push(...action.payload)
     },
   },
@@ -19,3 +22,4 @@ export const { pokemonAdopted } = adoptedSlice.actions;
 export default adoptedSlice.reducer;
 
 export const selectAdopted = state => state.adopted.items;
+
