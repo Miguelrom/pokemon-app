@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { itemAdded } from "../store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { cartItemAdded, selectIsInCart, selectIsAdopted } from "../store/userSlice";
 import classes from './PokemonCard.module.css';
 
 export default function PokemonCard ({id, name, sprite, types}) {
 
-  const [isInCart, setIsInCart] = useState(sessionStorage.getItem(`cart_${id}`));
-  const isAdopted = sessionStorage.getItem(`adopted_${id}`);
+  const isInCart = useSelector((state) => selectIsInCart(state, id));
+  const isAdopted = useSelector((state) => selectIsAdopted(state, id));
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
-    dispatch(itemAdded({id, name, sprite, types}));
-    setIsInCart(true);
+    dispatch(cartItemAdded({id, name, sprite, types}));
   }
 
   return (
