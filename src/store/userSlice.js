@@ -1,9 +1,21 @@
 import { createSlice} from "@reduxjs/toolkit";
 
+const userSession = JSON.parse(sessionStorage.getItem('userSession'));
+
+let name = null;
+let cart = [];
+let adopted = [];
+
+if (userSession) {
+  name = userSession.name;
+  cart = userSession.cart;
+  adopted = userSession.adopted;
+}
+
 const initialState = {
-  name: null,
-  cart: [],
-  adopted: []
+  name,
+  cart,
+  adopted
 };
 
 const userSlice = createSlice({
