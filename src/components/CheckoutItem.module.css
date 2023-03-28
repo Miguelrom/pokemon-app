@@ -64,10 +64,15 @@
     width: 700px;
   }
 
+  .itemCard figure {
+    margin-bottom: 0;
+  }
+
   .itemDescription {
     text-align: left;
     padding-left: 2rem;
   }
+
 }
 
 .types span {
