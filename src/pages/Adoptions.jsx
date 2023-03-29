@@ -12,7 +12,7 @@ export default function Adoptions () {
     <>
       <PageTitle>Your companions!</PageTitle>
       {adopted.length > 0 && <PokemonList pokemon={adopted}/>}
-      {adopted.length === 0 && <p style={{textAlign: 'center'}}>No adopted pokemon yet</p>}
+      {adopted.length === 0 && <p style={{textAlign: 'center'}}>No adopted pokémon yet</p>}
     </>
   );
 }

@@ -6,7 +6,7 @@ export default function ProjectDescription() {
     <div className={classes.descriptionCard}>
       <h4>About</h4>
       <p>
-        This project is based on the Pókemon App development requested for the fourth stage of the Student of Excellence 2020
+        This project is based on the Pokémon App development requested for the fourth stage of the Student of Excellence 2020
         contest of NearSoft, Inc. <br />
         The main purpose of the web application is to serve as an exercise to acquire skills in
         frontend web development, particularly in the use of the <a href="https://react.dev/" target="_blank" rel="noopener noreferrer">React</a> library. <br />

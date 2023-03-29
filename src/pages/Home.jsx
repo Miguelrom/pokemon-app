@@ -7,7 +7,7 @@ export default function Home () {
 
   return (
     <>
-      <PageTitle>Welcome to Pokemon Adopter!</PageTitle>
+      <PageTitle>Welcome to Pokémon Adopter!</PageTitle>
       <PokemonSample />
       <Instructions />
     </>
